@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Add Student</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="header">
+        <a href="#default" class="logo">Tom's Library</a>
+            
+        <h3>Add Student</h3>
+    </div>
+    <div class="addadmin">
+        <form action="addstudent" method="post">
+        	<label for="studid"></label>
+            <input type="text" name="studid" id="studid" placeholder="ID"required><br><br>
+            <label for="studname"></label>
+            <input type="text" name="studname" id="studname" placeholder="Name"required><br><br>
+            <label for="studmail"></label>
+            <input type="email" name="studmail" id="studmail" placeholder="Email"required><br><br>
+            <label for="studpass"></label>
+            <input type="password" name="studpass" id="studpass" placeholder="New Password"required><br><br>
+            <button type="button"  onclick="addstudent()">Add Student</button>
+        </form>
+    </div>
+    <script >
+    	function addstudent(){
+    		var studentname=document.getElementById("studname").value;
+    		var studentmail=document.getElementById("studmail").value;
+    		var studentpass=document.getElementById("studpass").value;
+    		var studentid=document.getElementById("studid").value;
+    		var x= JSON.stringify({"studid":studentid,"studname":studentname,"studmail":studentmail,
+    			"studpass":studentpass});
+    		var xhr= new XMLHttpRequest();
+    		var url="http://localhost:8080/lms/webapi/student/addstudent";
+    		console.log(x);
+			xhr.open('POST',url,false);
+			xhr.setRequestHeader("Content-Type","application/json");
+			xhr.send(x);  
+			alert("Student Added");
+			window.location.replace("http://localhost:8080/lms/index.jsp");
+    	}
+    </script>
+</body>
+
+</html>

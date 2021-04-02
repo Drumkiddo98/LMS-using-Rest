@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Add Book</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="header">
+        <a href="#default" class="logo">Tom's Library</a>
+        <h3>Issue Book</h3>
+    </div>
+    <div class="issuebookform">
+        <form action="issuebook" method="post">
+            <label for="bookid"></label>
+            <input type="text" name="bookid" id="bookid" placeholder="BookID"required><br><br>
+            <label for="studid"></label>
+            <input type="text" name="studid" id="studid" placeholder="StudentID"required><br><br>
+            <button type="button" onclick="issuebook()">Issue Book</button>
+        </form>
+    </div>
+    <script >
+    function issuebook(){
+    	var bookid=document.getElementById("bookid").value;
+		var studentid=document.getElementById("studid").value;
+		var x= JSON.stringify({"bookid":bookid,"studid":studentid});
+		var xhr= new XMLHttpRequest();
+		var url="http://localhost:8080/lms/webapi/librarian/issuebook";
+		console.log(x);
+		xhr.open('POST',url,true);
+		xhr.setRequestHeader("Content-Type","application/json");
+		xhr.send(x);  
+		xhr.onreadystatechange=function(){
+			if(xhr.readyState==4  && xhr.status==200){		
+				var response1=xhr.responseText;
+				if(response1=='1'){
+					alert("Book Issued");
+					window.location.replace("http://localhost:8080/lms/libhome.html");
+				}
+				else {
+				alert("Book Not Issued Enter Correct Detail");	
+				window.location.replace("http://localhost:8080/lms/issuebook.html");
+				}
+		}
+	}
+    }
+    </script>
+    </body>
+    
+
+</html>
